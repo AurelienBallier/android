@@ -1065,7 +1065,7 @@ static void atkbd_set_device_attrs(struct atkbd *atkbd)
 			 "AT %s Set %d keyboard",
 			 atkbd->translated ? "Translated" : "Raw", atkbd->set);
 
-	snprintf(atkbd->phys, sizeof(atkbd->phys),
+	snprintf(atkbd->phys, sizeof(atkbd->phys)+7,
 		 "%s/input0", atkbd->ps2dev.serio->phys);
 
 	input_dev->name = atkbd->name;

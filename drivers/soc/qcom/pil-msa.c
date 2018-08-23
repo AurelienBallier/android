@@ -77,9 +77,11 @@
 #define MSS_MAGIC			0XAABADEAD
 
 static int pbl_mba_boot_timeout_ms = 1000;
+static int c_pbl_mba_boot_timeout_ms = (1000 * 1000);
 module_param(pbl_mba_boot_timeout_ms, int, S_IRUGO | S_IWUSR);
 
 static int modem_auth_timeout_ms = 10000;
+static int c_modem_auth_timeout_ms = (1000 * 10000);
 module_param(modem_auth_timeout_ms, int, S_IRUGO | S_IWUSR);
 
 /* If set to 0xAABADEAD, MBA failures trigger a kernel panic */
@@ -238,7 +240,7 @@ static int pil_msa_wait_for_mba_ready(struct q6v5_data *drv)
 
 	/* Wait for PBL completion. */
 	ret = readl_poll_timeout(drv->rmb_base + RMB_PBL_STATUS, status,
-		status != 0, POLL_INTERVAL_US, pbl_mba_boot_timeout_ms * 1000);
+		status != 0, POLL_INTERVAL_US, c_pbl_mba_boot_timeout_ms);
 	if (ret) {
 		dev_err(dev, "PBL boot timed out\n");
 		return ret;
@@ -250,7 +252,7 @@ static int pil_msa_wait_for_mba_ready(struct q6v5_data *drv)
 
 	/* Wait for MBA completion. */
 	ret = readl_poll_timeout(drv->rmb_base + RMB_MBA_STATUS, status,
-		status != 0, POLL_INTERVAL_US, pbl_mba_boot_timeout_ms * 1000);
+		status != 0, POLL_INTERVAL_US, c_pbl_mba_boot_timeout_ms);
 	if (ret) {
 		dev_err(dev, "MBA boot timed out\n");
 		return ret;
@@ -320,7 +322,7 @@ int __pil_mss_deinit_image(struct pil_desc *pil, bool err_path)
 				drv->rmb_base + RMB_MBA_COMMAND);
 		ret = readl_poll_timeout(drv->rmb_base + RMB_MBA_STATUS, status,
 			status == STATUS_MBA_UNLOCKED || status < 0,
-			POLL_INTERVAL_US, pbl_mba_boot_timeout_ms * 1000);
+			POLL_INTERVAL_US, c_pbl_mba_boot_timeout_ms);
 		if (ret)
 			dev_err(pil->dev, "MBA region unlock timed out\n");
 		else if (status < 0)
@@ -640,7 +642,7 @@ static int pil_msa_auth_modem_mdt(struct pil_desc *pil, const u8 *metadata,
 	writel_relaxed(CMD_META_DATA_READY, drv->rmb_base + RMB_MBA_COMMAND);
 	ret = readl_poll_timeout(drv->rmb_base + RMB_MBA_STATUS, status,
 		status == STATUS_META_DATA_AUTH_SUCCESS || status < 0,
-		POLL_INTERVAL_US, modem_auth_timeout_ms * 1000);
+		POLL_INTERVAL_US, c_modem_auth_timeout_ms);
 	if (ret) {
 		dev_err(pil->dev, "MBA authentication of headers timed out\n");
 	} else if (status < 0) {
@@ -721,7 +723,7 @@ static int pil_msa_mba_auth(struct pil_desc *pil)
 	/* Wait for all segments to be authenticated or an error to occur */
 	ret = readl_poll_timeout(drv->rmb_base + RMB_MBA_STATUS, status,
 			status == STATUS_AUTH_COMPLETE || status < 0,
-			50, modem_auth_timeout_ms * 1000);
+			50, c_modem_auth_timeout_ms);
 	if (ret) {
 		dev_err(pil->dev, "MBA authentication of image timed out\n");
 	} else if (status < 0) {

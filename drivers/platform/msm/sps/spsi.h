@@ -49,7 +49,7 @@
 #define SPSRM_ADDR_CLR \
 	((sizeof(int) == sizeof(long)) ? 0 : (SPSRM_CLEAR << 32))
 
-#define MAX_MSG_LEN 80
+#define MAX_MSG_LEN 180
 #define SPS_IPC_LOGPAGES 10
 #define SPS_IPC_REG_DUMP_FACTOR 3
 

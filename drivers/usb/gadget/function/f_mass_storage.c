@@ -3219,7 +3219,7 @@ int fsg_common_create_luns(struct fsg_common *common, struct fsg_config *cfg)
 	int i, rc;
 
 	for (i = 0; i < common->nluns; ++i) {
-		snprintf(buf, sizeof(buf), "lun%d", i);
+		snprintf(buf, sizeof(buf), "lun%hu", i);
 		rc = fsg_common_create_lun(common, &cfg->luns[i], i, buf, NULL);
 		if (rc)
 			goto fail;
@@ -3316,7 +3316,7 @@ int fsg_sysfs_update(struct fsg_common *common, struct device *dev, bool create)
 			if (i == 0)
 				snprintf(common->name[i], 8, "lun");
 			else
-				snprintf(common->name[i], 8, "lun%d", i-1);
+				snprintf(common->name[i], 8, "lun%hu", i-1);
 			ret = sysfs_create_link(&dev->kobj,
 					&common->luns[i]->dev.kobj,
 					common->name[i]);

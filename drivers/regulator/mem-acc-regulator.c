@@ -897,7 +897,7 @@ static int mem_acc_reg_config_init(struct mem_acc_regulator *mem_acc_vreg)
 	struct acc_reg_value *reg_config_list;
 	int len, size, rc, i, num_corners;
 	struct property *prop;
-	char prop_str[30];
+	char prop_str[40];
 	struct corner_acc_reg_config *corner_acc_reg_config;
 
 	rc = of_property_read_u32(of_node, "qcom,num-acc-corners",
@@ -974,7 +974,7 @@ static int mem_acc_override_reg_addr_val_init(
 	struct acc_reg_value *override_reg_config_list;
 	int i, tuple_count, tuple_match, len = 0, rc = 0;
 	u32 list_size, override_max_reg_config_len;
-	char prop_str[40];
+	char prop_str[50];
 	struct property *prop;
 	int num_corners = mem_acc_vreg->num_corners;
 

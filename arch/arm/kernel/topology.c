@@ -79,12 +79,12 @@ static int __init parse_core(struct device_node *core, int cluster_id,
 {
 	char name[10];
 	bool leaf = true;
-	int i = 0;
+	unsigned short int i = 0;
 	int cpu;
 	struct device_node *t;
 
 	do {
-		snprintf(name, sizeof(name), "thread%d", i);
+		snprintf(name, sizeof(name), "thread%hu", i);
 		t = of_get_child_by_name(core, name);
 		if (t) {
 			leaf = false;
@@ -129,7 +129,8 @@ static int __init parse_cluster(struct device_node *cluster, int depth)
 	bool has_cores = false;
 	struct device_node *c;
 	int core_id = 0;
-	int i, ret;
+	unsigned short int i;
+	int ret;
 	static int cluster_id __initdata;
 
 	/*
@@ -139,7 +140,7 @@ static int __init parse_cluster(struct device_node *cluster, int depth)
 	*/
 	i = 0;
 	do {
-		snprintf(name, sizeof(name), "cluster%d", i);
+		snprintf(name, sizeof(name), "cluster%hu", i);
 		c = of_get_child_by_name(cluster, name);
 		if (c) {
 			leaf = false;

@@ -1599,7 +1599,7 @@ static ssize_t ft5x06_update_fw_show(struct device *dev,
 {
 	struct ft5x06_ts_data *data = dev_get_drvdata(dev);
 
-	return snprintf(buf, 2, "%d\n", data->loading_fw);
+	return snprintf(buf, 3, "%1d\n", data->loading_fw);
 }
 
 static ssize_t ft5x06_update_fw_store(struct device *dev,

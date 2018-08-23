@@ -26,7 +26,6 @@
 #include <soc/qcom/pm.h>
 #include <soc/qcom/lpm-stats.h>
 
-#define MAX_STR_LEN 256
 #define MAX_TIME_LEN 20
 const char *lpm_stats_reset = "reset";
 const char *lpm_stats_suspend = "suspend";

@@ -424,7 +424,7 @@ ascii2desc(char const *s, u8 *buf, unsigned len)
 static unsigned
 rh_string(int id, struct usb_hcd const *hcd, u8 *data, unsigned len)
 {
-	char buf[100];
+	char buf[200];
 	char const *s;
 	static char const langids[4] = {4, USB_DT_STRING, 0x09, 0x04};
 
@@ -447,7 +447,7 @@ rh_string(int id, struct usb_hcd const *hcd, u8 *data, unsigned len)
 		break;
 	case 3:
 		/* Manufacturer */
-		snprintf (buf, sizeof buf, "%s %s %s", init_utsname()->sysname,
+		snprintf (buf, sizeof(buf), "%s %s %s", init_utsname()->sysname,
 			init_utsname()->release, hcd->driver->description);
 		s = buf;
 		break;

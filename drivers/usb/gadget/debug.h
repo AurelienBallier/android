@@ -16,8 +16,8 @@
 #define __DEBUG_H_
 
 #define DBG_MAX_MSG   1024UL
-#define DBG_MSG_LEN   80UL
-#define TIME_BUF_LEN  17
+#define DBG_MSG_LEN   100UL
+#define TIME_BUF_LEN  18
 #define DBG_EVENT_LEN  (DBG_MSG_LEN - TIME_BUF_LEN)
 
 extern unsigned int enable_event_log;

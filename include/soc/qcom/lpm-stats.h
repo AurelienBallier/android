@@ -18,6 +18,7 @@
 struct lpm_stats;
 
 #define MAX_STR_LEN 256
+#define NAME_SIZE 50
 
 struct lifo_stats {
 	uint32_t last_in;
@@ -25,7 +26,7 @@ struct lifo_stats {
 };
 
 struct lpm_stats {
-	char name[MAX_STR_LEN];
+	char name[NAME_SIZE];
 	struct level_stats *time_stats;
 	uint32_t num_levels;
 	struct lifo_stats lifo;
