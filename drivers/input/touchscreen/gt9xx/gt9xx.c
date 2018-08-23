@@ -1777,7 +1777,7 @@ int gtp_parse_dt_cfg(struct device *dev, u8 *cfg, int *cfg_len, u8 sid)
 {
 	struct device_node *np = dev->of_node;
 	struct property *prop;
-	char cfg_name[18];
+	char cfg_name[24];
 	int ret;
 
 	snprintf(cfg_name, sizeof(cfg_name), "goodix,cfg-group%d", sid);

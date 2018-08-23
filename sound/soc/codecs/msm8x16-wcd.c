@@ -1842,12 +1842,14 @@ static int msm8x16_wcd_codec_enable_on_demand_supply(
 				 __func__, on_demand_supply_name[w->shift]);
 			goto out;
 		}
-		if (atomic_dec_return(&supply->ref) == 0)
+		if (atomic_dec_return(&supply->ref) == 0){
 			ret = regulator_disable(supply->supply);
-			if (ret)
+			if (ret){
 				dev_err(codec->dev, "%s: Failed to disable %s\n",
 					__func__,
 					on_demand_supply_name[w->shift]);
+			}
+		}
 		break;
 	default:
 		break;
@@ -2386,11 +2388,11 @@ static const char * const msm8x16_wcd_boost_option_ctrl_text[] = {
 static const struct soc_enum msm8x16_wcd_boost_option_ctl_enum[] = {
 		SOC_ENUM_SINGLE_EXT(4, msm8x16_wcd_boost_option_ctrl_text),
 };
-static const char * const msm8x16_wcd_spk_boost_ctrl_text[] = {
+/*static const char * const msm8x16_wcd_spk_boost_ctrl_text[] = {
 		"DISABLE", "ENABLE"};
 static const struct soc_enum msm8x16_wcd_spk_boost_ctl_enum[] = {
 		SOC_ENUM_SINGLE_EXT(2, msm8x16_wcd_spk_boost_ctrl_text),
-};
+};*/
 
 static const char * const msm8x16_wcd_ext_spk_boost_ctrl_text[] = {
 		"DISABLE", "ENABLE"};
@@ -2934,9 +2936,9 @@ static const struct snd_kcontrol_new spkr_mux[] = {
 	SOC_DAPM_ENUM("SPK", hph_enum)
 };
 
-static const char * const lo_text[] = {
+/*static const char * const lo_text[] = {
 	"ZERO", "Switch",
-};
+};*/
 
 static const struct soc_enum lo_enum =
 	SOC_ENUM_SINGLE(SND_SOC_NOPM, 0, ARRAY_SIZE(hph_text), hph_text);

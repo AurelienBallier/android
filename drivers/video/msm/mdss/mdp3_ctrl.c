@@ -787,9 +787,10 @@ static int mdp3_ctrl_on(struct msm_fb_data_type *mfd)
 				MDSS_EVENT_UNBLANK, NULL);
 		rc |= panel->event_handler(panel,
 				MDSS_EVENT_PANEL_ON, NULL);
-		if (mdss_fb_is_power_on_ulp(mfd))
+		if (mdss_fb_is_power_on_ulp(mfd)){
 			rc |= mdp3_enable_panic_ctrl();
 			mdp3_clk_enable(0, 0);
+		}
 		}
 	}
 
@@ -876,10 +877,11 @@ static int mdp3_ctrl_on(struct msm_fb_data_type *mfd)
 	mdp3_session->clk_on = 1;
 
 	mdp3_session->first_commit = true;
-	if (mfd->panel_info->panel_dead)
+	if (mfd->panel_info->panel_dead){
 		mdp3_session->esd_recovery = true;
 
 		mdp3_session->status = 1;
+	}
 
 	mdp3_ctrl_pp_resume(mfd);
 	MDSS_XLOG(XLOG_FUNC_EXIT, __LINE__, mfd->panel_power_state);
